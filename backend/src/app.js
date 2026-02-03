@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
-const connectDB = require('./config/db')
+const authRoutes = require('./routes/authRoutes')
+const userRoutes = require('./routes/userRoutes')
 
 require('dotenv').config()
 
@@ -10,7 +11,10 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-// routes will be added here
+// routes
+app.use('/api/v1/auth', authRoutes)
+app.use('/api/v1', userRoutes)
+
 app.get('/api/v1/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() })
 })
